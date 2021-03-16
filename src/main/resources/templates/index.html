@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Country Phone Codes Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+
+    body {
+        display: flex;
+        height: 100vh;
+        background: #e5e5e5;
+    }
+    .wrapper {
+        margin: auto;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        width: 440px;
+        text-align: center;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    }
+    .header {
+        padding: 50px 50px 100px 50px;
+        min-height: 150px;
+    }
+    .header h1 {
+        color: #536a89;
+        text-transform: uppercase;
+        font-size: 30px;
+        letter-spacing: 4px;
+    }
+    .header p {
+        font-size: 13px;
+        color: rgba(92, 118, 152, 0.8);
+    }
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    .footer form {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .footer input {
+        background: #e0e5ec;
+        border: none;
+        padding: 20px 25px;
+        flex-grow: 2;
+        display: block;
+        color: #5c7698;
+        border-radius: 3px;
+    }
+    .footer input::-webkit-input-placeholder {
+        color: rgba(92, 118, 152, 0.7);
+    }
+    .footer input:focus {
+        outline: none;
+    }
+    .footer .btn-submit {
+        background: #c6cfdc;
+        border: none;
+        padding: 20px;
+        flex-grow: 1;
+        color: #5c7698;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+
+    }
+
+    form{
+        display:inline;
+        text-align:center;
+    }
+
+</style>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <h1>Country Name Guesser</h1>
+        <p><b>Enter a phone number with countrycode and press "Guess Country"</b></p>
+    </div>
+    <div class="footer">
+        <form action="" id="delete_reply">
+
+            <input type="text" name="phone_number" id="phone_number" style="text-align:center;"/>
+            <input type="button" name="postData" id="postData" value="Guess Country" onclick="postDataFromAPI();"/>
+        </form>
+    </div>
+</div>
+<script>
+
+    function postDataFromAPI() {
+
+        var modelObj = {
+            phone: $("#phone_number").val(),
+
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/phone",
+            dataType: "json",
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            data: JSON.stringify(modelObj),
+            success: function (data) {
+                $.each(data, function(key, value) {
+                    alert( value );
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+    }
+</script>
+</body>
+</html>
